@@ -3,6 +3,8 @@
 	export let inputType: string = 'text';
 	export let defaultText: string;
 	export let id: string | undefined = undefined;
+
+	export let value: string | number = inputType == 'number' ? 0 : '';
 </script>
 
 <div class="flex flex-col">
@@ -12,14 +14,22 @@
 			id={id || label}
 			type="text"
 			placeholder={defaultText}
-			class="p-1 text-xl rounded-md m-2 mx-0 outline-none border-transparent focus:border-gray-400 border-2 transition w-56"
+			class="p-1 text-xl rounded-md mt-2 mb-4 outline-none border-transparent focus:border-gray-400 border-2 transition w-56"
+			bind:value
+		/>
+	{:else if inputType === 'textarea'}
+		<textarea
+			id={id || label}
+			class="p-1 text-xl rounded-md mt-2 mb-4 outline-none border-transparent focus:border-gray-400 border-2 transition w-full"
+			placeholder={defaultText}
+			bind:value
 		/>
 	{:else}
 		<input
 			id={id || label}
 			type="number"
-			class="p-1 text-xl rounded-md m-2 mx-0 outline-none border-transparent focus:border-gray-400 border-2 transition w-56"
-			value="0"
+			class="p-1 text-xl rounded-md mt-2 mb-4 outline-none border-transparent focus:border-gray-400 border-2 transition w-56"
+			bind:value
 		/>
 	{/if}
 </div>

@@ -14,7 +14,7 @@
 		</a>
 	</div>
 	<div class="flex flex-row items-center justify-between w-full p-2 h-20">
-		<a href="/"><h1 class="text-4xl font-semibold">Egel Card Creator</h1></a>
+		<a href="/"><h1 class="text-4xl font-semibold">Egel Card Game</h1></a>
 	</div>
 </header>
 

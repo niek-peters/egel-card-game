@@ -14,7 +14,7 @@
 		imgUrl = URL.createObjectURL(imgInput.files[0]);
 	}
 
-	let imgUrl: string;
+	export let imgUrl: string = '';
 	let imgInput: HTMLInputElement;
 </script>
 
@@ -22,7 +22,7 @@
 	type="button"
 	class={`img-button flex outline-none items-center justify-center relative rounded-md bg-blue-300 ${
 		imgUrl ? '' : 'hover:bg-blue-400'
-	} transition my-2`}
+	} transition mb-2`}
 	on:click={() => imgInput.click()}
 >
 	<input
