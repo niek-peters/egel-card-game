@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+	import { browser } from '$app/environment';
 
 	import type { CardData, MoveData } from '../models/cardData';
 
@@ -12,10 +13,10 @@
 	import Move from '../components/move.svelte';
 
 	let defaultMove: MoveData = {
-		name: 'De Beurt',
-		type: 'Docent',
+		name: '',
+		type: '',
 		power: 0,
-		effect: 'None',
+		effect: '',
 		accuracy: 0,
 		pp: 0
 	};
@@ -40,7 +41,24 @@
 		intelligence: 0
 	};
 
-	$: console.log(card);
+	function setLocalStorage() {
+		if (!browser) return;
+
+		localStorage.setItem('card', JSON.stringify(card));
+	}
+
+	function readLocalStorage() {
+		if (!browser) return;
+
+		const readCard = localStorage.getItem('card');
+		if (readCard) {
+			card = JSON.parse(readCard);
+		}
+	}
+
+	readLocalStorage();
+
+	$: setLocalStorage;
 </script>
 
 <Card>

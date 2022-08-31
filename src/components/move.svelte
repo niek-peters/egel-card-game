@@ -10,6 +10,6 @@
 	<HorInput label="Type" defaultText="Docent" id={`move${index}type`} />
 	<HorInput label="Power" inputType="number" id={`move${index}power`} />
 	<HorInput label="Effect" defaultText="None" id={`move${index}effect`} />
-	<HorInput label="Accuracy" inputType="number" id={`move${index}accuracy`} />
+	<HorInput label="Accuracy (%)" inputType="number" id={`move${index}accuracy`} />
 	<HorInput label="PP" inputType="number" id={`move${index}pp`} />
 </div>
