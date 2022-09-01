@@ -5,9 +5,9 @@ const defaultMove: MoveData = {
 	name: '',
 	type: '',
 	power: 0,
+	special: 0,
 	effect: '',
-	accuracy: 0,
-	pp: 0
+	accuracy: 0
 };
 
 export const cardData = writable<CardData>({
@@ -15,12 +15,11 @@ export const cardData = writable<CardData>({
 	primaryType: '',
 	secondaryType: '',
 	imageUrl: '',
+	imageBlob: undefined,
+	imageBase64: undefined,
 	ability: '',
 	description: '',
-	move1: defaultMove,
-	move2: defaultMove,
-	move3: defaultMove,
-	move4: defaultMove,
+	moves: [defaultMove, defaultMove, defaultMove, defaultMove],
 	health: 0,
 	attack: 0,
 	spAttack: 0,
@@ -40,12 +39,11 @@ export function resetCardData() {
 		primaryType: '',
 		secondaryType: '',
 		imageUrl: '',
+		imageBlob: undefined,
+		imageBase64: undefined,
 		ability: '',
 		description: '',
-		move1: defaultMove,
-		move2: defaultMove,
-		move3: defaultMove,
-		move4: defaultMove,
+		moves: [defaultMove, defaultMove, defaultMove, defaultMove],
 		health: 0,
 		attack: 0,
 		spAttack: 0,

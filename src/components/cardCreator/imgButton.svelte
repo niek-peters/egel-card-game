@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import Fa from 'svelte-fa';
 	import { faPlus } from '@fortawesome/free-solid-svg-icons';
+	import { cardData } from '../../stores/cardData';
 
 	function updateImgPreview() {
 		if (!imgInput.files) return;
@@ -11,10 +13,33 @@
 			return;
 		}
 
+		imgBlob = imgInput.files[0];
 		imgUrl = URL.createObjectURL(imgInput.files[0]);
+
+		getImageBase64();
+	}
+
+	function blobToBase64(blob: Blob) {
+		console.log(typeof blob);
+
+		return new Promise((resolve, _) => {
+			const reader = new FileReader();
+			reader.onloadend = () => resolve(reader.result);
+			reader.readAsDataURL(blob);
+		});
+	}
+
+	async function getImageBase64() {
+		if (!browser) return;
+
+		if (!$cardData.imageBlob) return;
+
+		imgBase64 = (await blobToBase64($cardData.imageBlob)) as string;
 	}
 
 	export let imgUrl: string = '';
+	export let imgBlob: Blob | undefined;
+	export let imgBase64: string | undefined;
 	let imgInput: HTMLInputElement;
 </script>
 

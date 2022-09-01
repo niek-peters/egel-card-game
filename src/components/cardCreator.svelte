@@ -59,7 +59,11 @@
 					<Input label="Secondary Type" inputType="select" bind:value={$cardData.secondaryType} />
 				</div>
 			</div>
-			<ImgButton bind:imgUrl={$cardData.imageUrl} />
+			<ImgButton
+				bind:imgUrl={$cardData.imageUrl}
+				bind:imgBlob={$cardData.imageBlob}
+				bind:imgBase64={$cardData.imageBase64}
+			/>
 			<div class="infogrid grid grid-cols-2 my-2">
 				<div class="flex flex-col mr-auto">
 					<Input label="Ability Name" defaultText="Overspannen" bind:value={$cardData.ability} />

@@ -10,7 +10,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
 </svelte:head>
 
-<div class="bg absolute w-full h-full bg-no-repeat bg-center bg-cover -z-10" />
+<div class="bg absolute w-full bg-no-repeat bg-center bg-cover -z-10" />
 <Header />
 <div class="flex w-full justify-center -mt-16">
 	<slot />
@@ -19,5 +19,6 @@
 <style lang="scss">
 	.bg {
 		background-image: url('/bg-1.svg');
+		aspect-ratio: 16/9;
 	}
 </style>

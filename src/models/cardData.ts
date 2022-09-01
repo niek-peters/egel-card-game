@@ -2,9 +2,9 @@ export type MoveData = {
 	name: string;
 	type: string;
 	power: number;
+	special: number;
 	effect: string;
 	accuracy: number;
-	pp: number;
 };
 
 export type CardData = {
@@ -12,13 +12,11 @@ export type CardData = {
 	primaryType: string;
 	secondaryType?: string;
 	imageUrl: string;
+	imageBlob?: Blob;
+	imageBase64?: string;
 	ability: string;
 	description: string;
-
-	move1: MoveData;
-	move2?: MoveData;
-	move3?: MoveData;
-	move4?: MoveData;
+	moves: MoveData[];
 
 	health: number;
 	attack: number;
