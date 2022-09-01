@@ -12,7 +12,6 @@ export type CardData = {
 	primaryType: string;
 	secondaryType?: string;
 	imageUrl: string;
-	imageBase64?: string;
 	ability: string;
 	description: string;
 	moves: MoveData[];

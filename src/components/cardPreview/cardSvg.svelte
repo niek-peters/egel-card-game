@@ -626,7 +626,7 @@
 			data-name="cardImage.jpg"
 			width="533"
 			height="300"
-			xlink:href={$cardData.imageBase64}
+			xlink:href={$cardData.imageUrl}
 		/>
 	</defs>
 </svg>

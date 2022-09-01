@@ -2,75 +2,49 @@
 	import { browser } from '$app/environment';
 	import Fa from 'svelte-fa';
 	import { faPlus } from '@fortawesome/free-solid-svg-icons';
-	import Jimp from 'jimp/browser/lib/jimp';
-	import { cardData } from '../../stores/cardData';
+
+	import cropImage from '../../scripts/cropImage';
 
 	async function updateImgPreview() {
-		if (!imgInput.files) return;
+		if (!browser) return;
+		if (!imgInput.files || !imgInput.files[0]) return;
 
-		const acceptedImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
-		if (!acceptedImageTypes.includes(imgInput.files[0].type)) {
-			imgUrl = 'https://static.thenounproject.com/png/586340-200.png';
-			return;
-		}
+		const reader = new FileReader();
 
-		// Resize image
-		Jimp.read(await blobToBuffer(imgInput.files[0])).then((image) => {
-			image.cover(216, 384);
-			image.getBase64(Jimp.MIME_PNG, (err, src) => {
-				imgBase64 = src;
-			});
+		reader.readAsDataURL(imgInput.files[0]);
 
-			imgUrl = URL.createObjectURL(image);
+		reader.onload = function (event) {
+			const imgElement = document.createElement('img');
+			if (!imgElement || !event.target || !event.target.result) return;
 
-			// getImageBase64();
-		});
-	}
+			imgElement.src = event.target.result as string;
 
-	// function blobToBase64(blob: Blob) {
-	// 	console.log(typeof blob);
+			imgElement.onload = function (e) {
+				const img = e.target as CanvasImageSource;
+				if (
+					!e.target ||
+					!img.width ||
+					!img.height ||
+					typeof img.width !== 'number' ||
+					typeof img.height !== 'number'
+				)
+					return;
 
-	// 	return new Promise((resolve, _) => {
-	// 		const reader = new FileReader();
-	// 		reader.onloadend = () => resolve(reader.result);
-	// 		reader.readAsDataURL(blob);
-	// 	});
-	// }
+				const canvas = document.createElement('canvas');
+				canvas.width = 384;
+				canvas.height = 216;
 
-	function blobToBuffer(blob: Blob): Promise<string> {
-		console.log(typeof blob);
+				const ctx = canvas.getContext('2d');
+				if (!ctx) return;
 
-		return new Promise((resolve, _) => {
-			const reader = new FileReader();
-			reader.onload = () => {
-				let arrayBuffer = reader.result;
+				cropImage(ctx, img, 0, 0, canvas.width, canvas.height);
 
-				if (!arrayBuffer || typeof arrayBuffer === 'string') return;
-
-				let array = new Uint8Array(arrayBuffer);
-				let binaryString = toBinString(array);
-
-				resolve(binaryString);
+				imgUrl = ctx.canvas.toDataURL('image/jpg');
 			};
-			reader.readAsArrayBuffer(blob);
-		});
-	}
-
-	// async function getImageBase64() {
-	// 	if (!browser) return;
-
-	// 	if (!$cardData.imageBase64) return;
-
-	// 	imgBase64 = (await blobToBase64($cardData.imageBlob)) as string;
-	// }
-
-	function toBinString(bytes: Uint8Array): string {
-		return bytes.reduce((str, byte) => str + byte.toString(2).padStart(8, '0'), '');
+		};
 	}
 
 	export let imgUrl: string = '';
-	// export let imgBlob: Blob | undefined;
-	export let imgBase64: string | undefined;
 	let imgInput: HTMLInputElement;
 </script>
 
