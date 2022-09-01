@@ -198,15 +198,25 @@
 		<path id="verDevider" d="M120 244L120 124" stroke="black" stroke-width="0.1" />
 		<g id="moves">
 			<g id="move4">
-				<text
+				<foreignObject
 					id="move4Effect"
 					fill="black"
 					xml:space="preserve"
 					style="white-space: pre"
 					font-family="Inter"
 					font-size="4"
-					letter-spacing="0em"><tspan x="20" y="237.955">{$cardData.moves[3].effect}</tspan></text
+					letter-spacing="0em"
+					width="92"
+					height="12"
+					x="20"
+					y="233"
 				>
+					<p
+						style="margin: 0; width: 100%; height: 100%; word-wrap: break-word; white-space: pre-wrap;"
+					>
+						{$cardData.moves[3].effect}
+					</p>
+				</foreignObject>
 				<g id="move4Accuracy">
 					<path
 						id="move4AccuracyIcon"
@@ -282,15 +292,25 @@
 				</g>
 			</g>
 			<g id="move3">
-				<text
+				<foreignObject
 					id="move3Effect"
 					fill="black"
 					xml:space="preserve"
 					style="white-space: pre"
 					font-family="Inter"
 					font-size="4"
-					letter-spacing="0em"><tspan x="20" y="213.955">{$cardData.moves[2].effect}</tspan></text
+					letter-spacing="0em"
+					width="92"
+					height="12"
+					x="20"
+					y="209"
 				>
+					<p
+						style="margin: 0; width: 100%; height: 100%; word-wrap: break-word; white-space: pre-wrap;"
+					>
+						{$cardData.moves[2].effect}
+					</p>
+				</foreignObject>
 
 				<g id="move3Accuracy">
 					<path
@@ -367,15 +387,25 @@
 				</g>
 			</g>
 			<g id="move2">
-				<text
+				<foreignObject
 					id="move2Effect"
 					fill="black"
 					xml:space="preserve"
 					style="white-space: pre"
 					font-family="Inter"
 					font-size="4"
-					letter-spacing="0em"><tspan x="20" y="189.955">{$cardData.moves[1].effect}</tspan></text
+					letter-spacing="0em"
+					width="92"
+					height="12"
+					x="20"
+					y="185"
 				>
+					<p
+						style="margin: 0; width: 100%; height: 100%; word-wrap: break-word; white-space: pre-wrap;"
+					>
+						{$cardData.moves[1].effect}
+					</p>
+				</foreignObject>
 				<g id="move2Accuracy">
 					<path
 						id="move2AccuracyIcon"
@@ -453,15 +483,25 @@
 				</g>
 			</g>
 			<g id="move1">
-				<text
+				<foreignObject
 					id="move1Effect"
 					fill="black"
 					xml:space="preserve"
 					style="white-space: pre"
 					font-family="Inter"
 					font-size="4"
-					letter-spacing="0em"><tspan x="20" y="165.955">{$cardData.moves[0].effect}</tspan></text
+					letter-spacing="0em"
+					width="92"
+					height="12"
+					x="20"
+					y="161.955"
 				>
+					<p
+						style="margin: 0; width: 100%; height: 100%; word-wrap: break-word; white-space: pre-wrap;"
+					>
+						{$cardData.moves[0].effect}
+					</p>
+				</foreignObject>
 
 				<g id="move1Accuracy">
 					<path
