@@ -621,7 +621,12 @@
 				font-size="8"
 				letter-spacing="0em"><tspan x="8" y="16.9091">{$cardData.name}</tspan></text
 			>
-			<g id="secondaryTypeIcon">
+			<g
+				id="secondaryTypeIcon"
+				visibility={$cardData.primaryType !== 'None' && $cardData.secondaryType !== 'None'
+					? 'visible'
+					: 'hidden'}
+			>
 				<rect id="secondaryTypePill" x="119" y="8" width="32" height="12" rx="5" fill="#4C63E0" />
 				<text
 					id="secondaryTypeName"
@@ -635,8 +640,17 @@
 					letter-spacing="0em"><tspan x="135" y="14">{$cardData.secondaryType}</tspan></text
 				>
 			</g>
+			<!-- 82 - 119 -->
 			<g id="primaryTypeIcon">
-				<rect id="primaryTypePill" x="82" y="8" width="32" height="12" rx="5" fill="#DA5454" />
+				<rect
+					id="primaryTypePill"
+					x={$cardData.primaryType !== 'None' && $cardData.secondaryType !== 'None' ? 82 : 119}
+					y="8"
+					width="32"
+					height="12"
+					rx="5"
+					fill="#DA5454"
+				/>
 				<text
 					id="primaryTypeName"
 					fill="black"
@@ -646,7 +660,11 @@
 					font-size="6"
 					text-anchor="middle"
 					dominant-baseline="middle"
-					letter-spacing="0em"><tspan x="98" y="14">{$cardData.primaryType}</tspan></text
+					letter-spacing="0em"
+					><tspan
+						x={$cardData.primaryType !== 'None' && $cardData.secondaryType !== 'None' ? 98 : 135}
+						y="14">{$cardData.primaryType}</tspan
+					></text
 				>
 			</g>
 		</g>
