@@ -2,9 +2,10 @@
 	import { browser } from '$app/environment';
 	import Fa from 'svelte-fa';
 	import { faPlus } from '@fortawesome/free-solid-svg-icons';
+	import Jimp from 'jimp/browser/lib/jimp';
 	import { cardData } from '../../stores/cardData';
 
-	function updateImgPreview() {
+	async function updateImgPreview() {
 		if (!imgInput.files) return;
 
 		const acceptedImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
@@ -13,32 +14,62 @@
 			return;
 		}
 
-		imgBlob = imgInput.files[0];
-		imgUrl = URL.createObjectURL(imgInput.files[0]);
+		// Resize image
+		Jimp.read(await blobToBuffer(imgInput.files[0])).then((image) => {
+			image.cover(216, 384);
+			image.getBase64(Jimp.MIME_PNG, (err, src) => {
+				imgBase64 = src;
+			});
 
-		getImageBase64();
+			imgUrl = URL.createObjectURL(image);
+
+			// getImageBase64();
+		});
 	}
 
-	function blobToBase64(blob: Blob) {
+	// function blobToBase64(blob: Blob) {
+	// 	console.log(typeof blob);
+
+	// 	return new Promise((resolve, _) => {
+	// 		const reader = new FileReader();
+	// 		reader.onloadend = () => resolve(reader.result);
+	// 		reader.readAsDataURL(blob);
+	// 	});
+	// }
+
+	function blobToBuffer(blob: Blob): Promise<string> {
 		console.log(typeof blob);
 
 		return new Promise((resolve, _) => {
 			const reader = new FileReader();
-			reader.onloadend = () => resolve(reader.result);
-			reader.readAsDataURL(blob);
+			reader.onload = () => {
+				let arrayBuffer = reader.result;
+
+				if (!arrayBuffer || typeof arrayBuffer === 'string') return;
+
+				let array = new Uint8Array(arrayBuffer);
+				let binaryString = toBinString(array);
+
+				resolve(binaryString);
+			};
+			reader.readAsArrayBuffer(blob);
 		});
 	}
 
-	async function getImageBase64() {
-		if (!browser) return;
+	// async function getImageBase64() {
+	// 	if (!browser) return;
 
-		if (!$cardData.imageBlob) return;
+	// 	if (!$cardData.imageBase64) return;
 
-		imgBase64 = (await blobToBase64($cardData.imageBlob)) as string;
+	// 	imgBase64 = (await blobToBase64($cardData.imageBlob)) as string;
+	// }
+
+	function toBinString(bytes: Uint8Array): string {
+		return bytes.reduce((str, byte) => str + byte.toString(2).padStart(8, '0'), '');
 	}
 
 	export let imgUrl: string = '';
-	export let imgBlob: Blob | undefined;
+	// export let imgBlob: Blob | undefined;
 	export let imgBase64: string | undefined;
 	let imgInput: HTMLInputElement;
 </script>

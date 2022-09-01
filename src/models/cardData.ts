@@ -12,7 +12,6 @@ export type CardData = {
 	primaryType: string;
 	secondaryType?: string;
 	imageUrl: string;
-	imageBlob?: Blob;
 	imageBase64?: string;
 	ability: string;
 	description: string;
