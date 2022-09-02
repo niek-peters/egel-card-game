@@ -1,4 +1,7 @@
-<option value="None">None</option>
-<option value="Docent">Docent</option>
-<option value="Frans">Frans</option>
-<option value="Leerling">Leerling</option>
+<script>
+	import { types } from '../../models/cardData';
+</script>
+
+{#each types as type}
+	<option value={type.name}>{type.name}</option>
+{/each}

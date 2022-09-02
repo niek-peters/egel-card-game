@@ -14,8 +14,6 @@
 		blobUrl =
 			'data:image/svg+xml; charset=utf8, ' + encodeURIComponent(serializeString(svgElement));
 
-		console.log(blobUrl);
-
 		let img = new Image();
 
 		img.onload = () => {
@@ -288,7 +286,7 @@
 					/>
 					<text
 						id="move4TypeName"
-						fill="black"
+						fill="white"
 						xml:space="preserve"
 						style="white-space: pre"
 						font-family="Inter"
@@ -391,7 +389,7 @@
 					/>
 					<text
 						id="move3TypeName"
-						fill="black"
+						fill="white"
 						xml:space="preserve"
 						style="white-space: pre"
 						font-family="Inter"
@@ -495,7 +493,7 @@
 					/>
 					<text
 						id="move2TypeName"
-						fill="black"
+						fill="white"
 						xml:space="preserve"
 						style="white-space: pre"
 						font-family="Inter"
@@ -598,7 +596,7 @@
 					/>
 					<text
 						id="move1TypeName"
-						fill="black"
+						fill="white"
 						xml:space="preserve"
 						style="white-space: pre"
 						font-family="Inter"
@@ -679,7 +677,7 @@
 				/>
 				<text
 					id="secondaryTypeName"
-					fill="black"
+					fill="white"
 					xml:space="preserve"
 					style="white-space: pre"
 					font-family="Inter"
@@ -707,7 +705,7 @@
 				/>
 				<text
 					id="primaryTypeName"
-					fill="black"
+					fill="white"
 					xml:space="preserve"
 					style="white-space: pre"
 					font-family="Inter"

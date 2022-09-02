@@ -1,5 +1,15 @@
 <script lang="ts">
 	import TypeOptions from './typeOptions.svelte';
+	import type { TypeData } from '../../models/cardData';
+	import { defaultType, getType } from '../../models/cardData';
+
+	function setType() {
+		const foundType: TypeData | undefined = getType(value.toString());
+		if (!foundType) return;
+
+		type = foundType;
+		console.log(type);
+	}
 
 	export let label: string;
 	export let inputType: string = 'text';
@@ -7,6 +17,7 @@
 	export let id: string | undefined = undefined;
 
 	export let value: string | number = inputType == 'number' ? 0 : '';
+	export let type: TypeData = defaultType;
 </script>
 
 <div class="flex flex-col">
@@ -31,6 +42,7 @@
 			id={id || label}
 			class="p-1 text-xl rounded-md mt-2 mb-4 outline-none border-transparent focus:border-gray-400 border-2 transition w-56"
 			bind:value
+			on:change={setType}
 		>
 			<TypeOptions />
 		</select>
