@@ -1,26 +1,38 @@
 import JsFileDownloader from 'js-file-downloader';
 
+export function jsonDownload(json: string) {
+	const src = 'data:text/json;charset=utf-8,' + encodeURIComponent(json);
+
+	new JsFileDownloader({
+		url: src,
+		filename: 'card.json'
+	});
+}
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-export function svgToCanvas(svgElement: HTMLElement, canvasElement: HTMLCanvasElement) {
-	const { width, height } = svgElement.getBoundingClientRect();
+export function svgDownload(svgElement: HTMLElement) {
+	//get svg source.
+	const serializer = new XMLSerializer();
+	let source = serializer.serializeToString(svgElement);
 
-	// blobUrl =
-	// 	'data:image/svg+xml; charset=utf8, ' + encodeURIComponent(serializeString(svgElement));
+	//add name spaces.
+	if (!source.match(/^<svg[^>]+xmlns="http:\/\/www\.w3\.org\/2000\/svg"/)) {
+		source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+	}
+	if (!source.match(/^<svg[^>]+"http:\/\/www\.w3\.org\/1999\/xlink"/)) {
+		source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+	}
 
-	const img = new Image();
+	//add xml declaration
+	source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
 
-	img.onload = () => {
-		if (!canvasElement) return;
+	//convert svg source to URI data scheme.
+	const src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
 
-		const cx = canvasElement.getContext('2d');
-		if (!cx) return;
-
-		canvasElement.width = width;
-		canvasElement.height = height;
-
-		cx.drawImage(img, 0, 0, width, height);
-	};
-	img.src = 'data:image/svg+xml; charset=utf8, ' + encodeURIComponent(serializeString(svgElement));
+	new JsFileDownloader({
+		url: src,
+		filename: 'card.svg'
+	});
 }
 
 export function svgDownloadAsPng(svgElement: HTMLElement, canvasElement: HTMLCanvasElement) {

@@ -1,18 +1,10 @@
 <script lang="ts">
 	import { cardData } from '../../stores/cardData';
-	import { browser } from '$app/environment';
-
-	// let canvasElement: HTMLCanvasElement;
-	// export let svgElement: SVGSVGElement;
-	// let blobUrl: string;
 </script>
 
-<!-- <canvas bind:this={canvasElement} width="0" height="0" /> -->
-<!-- <img src={blobUrl} alt="blyat" /> -->
-
 <svg
-	width="384"
-	height="624"
+	width="400"
+	height="650"
 	viewBox="0 0 160 260"
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"

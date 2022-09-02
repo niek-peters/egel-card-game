@@ -12,6 +12,6 @@
 
 <style>
 	main {
-		height: 42rem;
+		height: 42.6rem;
 	}
 </style>

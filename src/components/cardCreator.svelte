@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
-	import { faArrowDown, faTrash } from '@fortawesome/free-solid-svg-icons';
+	import { faImage, faTrash, faCode, faFileExport } from '@fortawesome/free-solid-svg-icons';
 	import { browser } from '$app/environment';
 
 	import type { CardData } from '../models/cardData';
 	import { cardData, setCardData, resetCardData } from '../stores/cardData';
-	import { svgDownloadAsPng } from '../scripts/svgToImage';
+	import { jsonDownload, svgDownload, svgDownloadAsPng } from '../scripts/cardDownload';
 
 	import Card from '../components/card.svelte';
 	import Input from '../components/cardCreator/input.svelte';
@@ -90,22 +90,41 @@
 
 					<div class="mt-auto">
 						<button
-							class="relative flex justify-center items-center p-4 text-xl rounded-md bg-red-400 hover:bg-red-500 transition my-2 w-full"
+							class="relative flex justify-center items-center p-4 text-xl rounded-md bg-yellow-400 hover:bg-yellow-500 transition my-2 w-full"
 							type="submit"
-							on:click={() =>
-								confirm('Are you sure you want to delete your card?') ? resetCard() : null}
-							><Fa class="absolute text-2xl mr-2 left-4" icon={faTrash} />Reset Card</button
+							on:click={() => {
+								const data = localStorage.getItem('card');
+								if (!data) return;
+
+								jsonDownload(data);
+							}}><Fa class="absolute text-2xl left-4" icon={faFileExport} />Export JSON</button
 						>
 						<button
-							download="card.png"
-							class="relative flex justify-center items-center p-4 text-xl rounded-md bg-yellow-400 hover:bg-yellow-500 transition my-2 w-full"
+							class="relative flex justify-center items-center p-4 text-xl rounded-md bg-blue-400 hover:bg-blue-500 transition my-2 w-full"
+							type="submit"
+							on:click={() => {
+								const svg = document.getElementById('svgPreview');
+								if (!svg) return;
+
+								svgDownload(svg);
+							}}><Fa class="absolute text-2xl left-4" icon={faCode} />Download SVG</button
+						>
+						<button
+							class="relative flex justify-center items-center p-4 text-xl rounded-md bg-green-400 hover:bg-green-500 transition my-2 w-full"
 							type="submit"
 							on:click={() => {
 								const svg = document.getElementById('svgPreview');
 								if (!svg) return;
 
 								svgDownloadAsPng(svg, canvasElement);
-							}}><Fa class="absolute text-2xl left-4" icon={faArrowDown} />Download PNG</button
+							}}><Fa class="absolute text-2xl left-4" icon={faImage} />Download PNG</button
+						>
+						<button
+							class="relative flex justify-center items-center p-4 text-xl rounded-md bg-red-400 hover:bg-red-500 transition my-2 w-full"
+							type="submit"
+							on:click={() =>
+								confirm('Are you sure you want to delete your card?') ? resetCard() : null}
+							><Fa class="absolute text-2xl mr-2 left-4" icon={faTrash} />Reset Card</button
 						>
 					</div>
 					<canvas bind:this={canvasElement} width="0" height="0" style="display: none;" />
@@ -117,7 +136,7 @@
 
 <style lang="scss">
 	.creator {
-		height: 42rem;
+		height: 42.6rem;
 
 		.infogrid {
 			grid-template-columns: 2fr 1fr;
