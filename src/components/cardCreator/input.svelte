@@ -16,7 +16,7 @@
 	export let inputType: string = 'text';
 	export let defaultText: string = '';
 	export let id: string | undefined = undefined;
-	export let max: number = 100;
+	export let max: number = 200;
 
 	export let value: string | number = inputType == 'number' ? 0 : '';
 	export let type: TypeData = defaultType;

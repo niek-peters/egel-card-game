@@ -69,7 +69,10 @@ export const types: TypeData[] = [
 	{ name: 'Duits', hexColor: '#ffce00' },
 	{ name: 'Engels', hexColor: '#102eb3' },
 	{ name: 'Codeer', hexColor: '#00a81f' },
-	{ name: 'Rein', hexColor: '#e39827' }
+	{ name: 'Rein', hexColor: '#e39827' },
+	{ name: 'Politicus', hexColor: '#fc6f03' },
+	{ name: 'Nederland', hexColor: '#037ffc' },
+	{ name: 'Sjiggel', hexColor: '#bf08a4' }
 ];
 
 export function getType(typeName: string) {
