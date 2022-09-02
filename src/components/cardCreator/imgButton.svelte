@@ -72,7 +72,7 @@
 <style lang="scss">
 	button {
 		width: 48rem;
-		height: 24rem;
+		height: 29.54rem;
 
 		img {
 			width: inherit;

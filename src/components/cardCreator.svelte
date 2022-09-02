@@ -16,6 +16,7 @@
 
 	let cardElement: HTMLElement;
 	let canvasElement: HTMLCanvasElement;
+	let submitType: string;
 
 	function setLocalStorage() {
 		if (!browser) return;
@@ -45,6 +46,25 @@
 		cardElement.scrollTop = 0;
 	}
 
+	function handleSubmit() {
+		if (submitType === 'exportJson') {
+			const data = localStorage.getItem('card');
+			if (!data) return;
+
+			jsonDownload(data);
+		} else if (submitType === 'downloadSvg') {
+			const svg = document.getElementById('svgPreview');
+			if (!svg) return;
+
+			svgDownload(svg);
+		} else if (submitType === 'downloadPng') {
+			const svg = document.getElementById('svgPreview');
+			if (!svg) return;
+
+			svgDownloadAsPng(svg, canvasElement);
+		}
+	}
+
 	readLocalStorage();
 
 	$: $cardData, setLocalStorage();
@@ -53,7 +73,7 @@
 <Card>
 	<h1 class="text-5xl p-6 font-semibold w-full text-center bg-gray-400/20">Card Creator</h1>
 	<main class="creator w-full overflow-y-auto p-4" bind:this={cardElement}>
-		<form class="flex flex-col" on:submit|preventDefault>
+		<form class="flex flex-col" on:submit|preventDefault={handleSubmit}>
 			<div class="flex justify-between items-center">
 				<Input label="Name" defaultText="Ruud Verwaal" bind:value={$cardData.name} />
 				<div class="flex justify-between w-3/5">
@@ -80,51 +100,58 @@
 				</div>
 
 				<div class="flex flex-col">
-					<HorInput label="Health" inputType="number" bind:value={$cardData.health} />
-					<HorInput label="Attack" inputType="number" bind:value={$cardData.attack} />
-					<HorInput label="Sp. Attack" inputType="number" bind:value={$cardData.spAttack} />
-					<HorInput label="Defense" inputType="number" bind:value={$cardData.defense} />
-					<HorInput label="Sp. Defense" inputType="number" bind:value={$cardData.spDefense} />
-					<HorInput label="Speed" inputType="number" bind:value={$cardData.speed} />
-					<HorInput label="Intelligence" inputType="number" bind:value={$cardData.intelligence} />
+					<HorInput label="Health" inputType="number" bind:value={$cardData.health} max={999} />
+					<HorInput label="Attack" inputType="number" bind:value={$cardData.attack} max={999} />
+					<HorInput
+						label="Sp. Attack"
+						inputType="number"
+						bind:value={$cardData.spAttack}
+						max={999}
+					/>
+					<HorInput label="Defense" inputType="number" bind:value={$cardData.defense} max={999} />
+					<HorInput
+						label="Sp. Defense"
+						inputType="number"
+						bind:value={$cardData.spDefense}
+						max={999}
+					/>
+					<HorInput label="Speed" inputType="number" bind:value={$cardData.speed} max={999} />
+					<HorInput
+						label="Intelligence"
+						inputType="number"
+						bind:value={$cardData.intelligence}
+						max={999}
+					/>
 
 					<div class="mt-auto">
 						<button
 							class="relative flex justify-center items-center p-4 text-xl rounded-md bg-yellow-400 hover:bg-yellow-500 transition my-2 w-full"
 							type="submit"
 							on:click={() => {
-								const data = localStorage.getItem('card');
-								if (!data) return;
-
-								jsonDownload(data);
+								submitType = 'exportJson';
 							}}><Fa class="absolute text-2xl left-4" icon={faFileExport} />Export JSON</button
 						>
 						<button
 							class="relative flex justify-center items-center p-4 text-xl rounded-md bg-blue-400 hover:bg-blue-500 transition my-2 w-full"
 							type="submit"
 							on:click={() => {
-								const svg = document.getElementById('svgPreview');
-								if (!svg) return;
-
-								svgDownload(svg);
+								submitType = 'downloadSvg';
 							}}><Fa class="absolute text-2xl left-4" icon={faCode} />Download SVG</button
 						>
 						<button
 							class="relative flex justify-center items-center p-4 text-xl rounded-md bg-green-400 hover:bg-green-500 transition my-2 w-full"
 							type="submit"
 							on:click={() => {
-								const svg = document.getElementById('svgPreview');
-								if (!svg) return;
-
-								svgDownloadAsPng(svg, canvasElement);
+								submitType = 'downloadPng';
 							}}><Fa class="absolute text-2xl left-4" icon={faImage} />Download PNG</button
 						>
 						<button
 							class="relative flex justify-center items-center p-4 text-xl rounded-md bg-red-400 hover:bg-red-500 transition my-2 w-full"
 							type="submit"
-							on:click={() =>
-								confirm('Are you sure you want to delete your card?') ? resetCard() : null}
-							><Fa class="absolute text-2xl mr-2 left-4" icon={faTrash} />Reset Card</button
+							on:click={() => {
+								submitType = '';
+								confirm('Are you sure you want to delete your card?') ? resetCard() : null;
+							}}><Fa class="absolute text-2xl mr-2 left-4" icon={faTrash} />Reset Card</button
 						>
 					</div>
 					<canvas bind:this={canvasElement} width="0" height="0" style="display: none;" />

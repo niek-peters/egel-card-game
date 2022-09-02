@@ -16,6 +16,7 @@
 	export let inputType: string = 'text';
 	export let defaultText: string = '';
 	export let id: string | undefined = undefined;
+	export let max: number = 100;
 
 	export let value: string | number = inputType == 'number' ? 0 : '';
 	export let type: TypeData = defaultType;
@@ -30,6 +31,7 @@
 			placeholder={defaultText}
 			class="p-1 text-xl rounded-md mt-2 mb-4 outline-none border-transparent focus:border-gray-400 border-2 transition w-56"
 			bind:value
+			maxlength={max}
 		/>
 	{:else if inputType === 'textarea'}
 		<textarea
@@ -37,6 +39,7 @@
 			class="p-1 text-xl rounded-md mt-2 mb-4 outline-none border-transparent focus:border-gray-400 border-2 transition w-full"
 			placeholder={defaultText}
 			bind:value
+			maxlength="255"
 		/>
 	{:else if inputType === 'select'}
 		<select
@@ -54,6 +57,8 @@
 			type="number"
 			class="p-1 text-xl rounded-md mt-2 mb-4 outline-none border-transparent focus:border-gray-400 border-2 transition w-56"
 			bind:value
+			min={0}
+			{max}
 		/>
 	{/if}
 </div>

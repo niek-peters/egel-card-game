@@ -13,6 +13,6 @@
 <style lang="scss">
 	.bg {
 		background-image: url('/bg-1.svg');
-		height: 58.59rem;
+		height: 100%;
 	}
 </style>
