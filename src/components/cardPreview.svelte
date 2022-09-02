@@ -9,3 +9,9 @@
 		<CardSvg />
 	</main>
 </Card>
+
+<style>
+	main {
+		height: 42rem;
+	}
+</style>

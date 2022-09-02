@@ -5,6 +5,7 @@
 
 	import type { CardData } from '../models/cardData';
 	import { cardData, setCardData, resetCardData } from '../stores/cardData';
+	import { svgDownloadAsPng } from '../scripts/svgToImage';
 
 	import Card from '../components/card.svelte';
 	import Input from '../components/cardCreator/input.svelte';
@@ -14,13 +15,12 @@
 	import Move from '../components/cardCreator/move.svelte';
 
 	let cardElement: HTMLElement;
+	let canvasElement: HTMLCanvasElement;
 
 	function setLocalStorage() {
 		if (!browser) return;
 
 		localStorage.setItem('card', JSON.stringify($cardData));
-
-		console.log($cardData);
 	}
 
 	function readLocalStorage() {
@@ -38,9 +38,9 @@
 	function resetCard() {
 		if (!browser) return;
 
-		localStorage.removeItem('card');
-
 		resetCardData();
+
+		location.reload();
 
 		cardElement.scrollTop = 0;
 	}
@@ -57,8 +57,8 @@
 			<div class="flex justify-between items-center">
 				<Input label="Name" defaultText="Ruud Verwaal" bind:value={$cardData.name} />
 				<div class="flex justify-between w-3/5">
-					<Input label="Primary Type" inputType="select" bind:type={$cardData.primaryType} bind:value={$cardData.primaryType.name}/>
-					<Input label="Secondary Type" inputType="select" bind:type={$cardData.secondaryType} bind:value={$cardData.secondaryType.name}/>
+					<Input label="Primary Type" inputType="select" bind:type={$cardData.primaryType} />
+					<Input label="Secondary Type" inputType="select" bind:type={$cardData.secondaryType} />
 				</div>
 			</div>
 			<ImgButton bind:imgUrl={$cardData.imageUrl} />
@@ -97,11 +97,18 @@
 							><Fa class="absolute text-2xl mr-2 left-4" icon={faTrash} />Reset Card</button
 						>
 						<button
+							download="card.png"
 							class="relative flex justify-center items-center p-4 text-xl rounded-md bg-yellow-400 hover:bg-yellow-500 transition my-2 w-full"
 							type="submit"
-							><Fa class="absolute text-2xl left-4" icon={faArrowDown} />Download PNG</button
+							on:click={() => {
+								const svg = document.getElementById('svgPreview');
+								if (!svg) return;
+
+								svgDownloadAsPng(svg, canvasElement);
+							}}><Fa class="absolute text-2xl left-4" icon={faArrowDown} />Download PNG</button
 						>
 					</div>
+					<canvas bind:this={canvasElement} width="0" height="0" style="display: none;" />
 				</div>
 			</div>
 		</form>
@@ -110,7 +117,7 @@
 
 <style lang="scss">
 	.creator {
-		max-height: 70vh;
+		height: 42rem;
 
 		.infogrid {
 			grid-template-columns: 2fr 1fr;

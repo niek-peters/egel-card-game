@@ -3,12 +3,13 @@
 	import type { TypeData } from '../../models/cardData';
 	import { defaultType, getType } from '../../models/cardData';
 
+	let selectElement: HTMLSelectElement;
+
 	function setType() {
-		const foundType: TypeData | undefined = getType(value.toString());
+		const foundType: TypeData | undefined = getType(selectElement.value);
 		if (!foundType) return;
 
 		type = foundType;
-		console.log(type);
 	}
 
 	export let label: string;
@@ -41,8 +42,9 @@
 		<select
 			id={id || label}
 			class="p-1 text-xl rounded-md mt-2 mb-4 outline-none border-transparent focus:border-gray-400 border-2 transition w-56"
-			bind:value
-			on:change={setType}
+			on:input={setType}
+			bind:this={selectElement}
+			bind:value={type.name}
 		>
 			<TypeOptions />
 		</select>

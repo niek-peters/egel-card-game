@@ -31,7 +31,7 @@ export type CardData = {
 };
 
 export const defaultType: TypeData = {
-	name: '',
+	name: 'None',
 	hexColor: '#e5e5e5'
 };
 
@@ -62,7 +62,7 @@ export const defaultCard: CardData = {
 };
 
 export const types: TypeData[] = [
-	{ name: 'None', hexColor: '#e5e5e5' },
+	defaultType,
 	{ name: 'Docent', hexColor: '#cc2f21' },
 	{ name: 'Leerling', hexColor: '#8a4acf' },
 	{ name: 'Frans', hexColor: '#3262c2' },

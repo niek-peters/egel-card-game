@@ -38,6 +38,7 @@
 	"dependencies": {
 		"@fortawesome/free-brands-svg-icons": "^6.2.0",
 		"@fortawesome/free-solid-svg-icons": "^6.2.0",
+		"js-file-downloader": "^1.1.24",
 		"svelte-fa": "^3.0.3"
 	}
 }
