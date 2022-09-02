@@ -18,7 +18,7 @@
 		label="Type"
 		inputType="select"
 		id={`move${index}type`}
-		bind:value={$cardData.moves[index - 1].type}
+		bind:value={$cardData.moves[index - 1].type.name}
 	/>
 	<HorInput
 		label="Power"

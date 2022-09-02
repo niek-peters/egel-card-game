@@ -55,8 +55,12 @@
 			<div class="flex justify-between items-center">
 				<Input label="Name" defaultText="Ruud Verwaal" bind:value={$cardData.name} />
 				<div class="flex justify-between w-3/5">
-					<Input label="Primary Type" inputType="select" bind:value={$cardData.primaryType} />
-					<Input label="Secondary Type" inputType="select" bind:value={$cardData.secondaryType} />
+					<Input label="Primary Type" inputType="select" bind:value={$cardData.primaryType.name} />
+					<Input
+						label="Secondary Type"
+						inputType="select"
+						bind:value={$cardData.secondaryType.name}
+					/>
 				</div>
 			</div>
 			<ImgButton bind:imgUrl={$cardData.imageUrl} />

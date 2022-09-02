@@ -1,6 +1,11 @@
+export type TypeData = {
+	name: string;
+	hexColor: string;
+};
+
 export type MoveData = {
 	name: string;
-	type: string;
+	type: TypeData;
 	power: number;
 	special: number;
 	effect: string;
@@ -9,8 +14,8 @@ export type MoveData = {
 
 export type CardData = {
 	name: string;
-	primaryType: string;
-	secondaryType?: string;
+	primaryType: TypeData;
+	secondaryType?: TypeData;
 	imageUrl: string;
 	ability: string;
 	description: string;
